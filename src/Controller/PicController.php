@@ -10,6 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
+use Symfony\Component\HttpFoundation\HeaderUtils;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 /**
  * @Route("/pic")
  */
@@ -92,5 +100,30 @@ class PicController extends AbstractController
         }
 
         return $this->redirectToRoute('pic_index');
+    }
+
+    /**
+     * @Route("/{id}/generate", name="pic_generate", methods={"GET"})
+     */
+    public function generate(Request $request, Pic $pic): Response
+    {
+        // $fileSystem = new Filesystem();
+
+        // try {
+        //     $fileSystem->dumpFile('aaaaaaaaaa.txt', 'Hello World '.$pic->getName());
+        // } catch (IOExceptionInterface $exception) {
+        //     echo "An error occurred while creating your directory at ".$exception->getPath();
+        // }
+
+        $fileContent = '...'; // the generated file content
+        $response = new Response($fileContent);
+
+        $disposition = HeaderUtils::makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            'foo.pdf'
+        );
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 }

@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('pic_generate', {'id': pic.id}) }}" >
+    <input type="hidden" name="_method" value="GET">
+    <input type="hidden" name="_token" value="{{ csrf_token('generate' ~ pic.id) }}">
+    <button class="btn">GENERATE</button>
+</form>
