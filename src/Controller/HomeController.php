@@ -16,4 +16,9 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
+    public function new()
+    {
+        // from Marcin
+    }
 }
